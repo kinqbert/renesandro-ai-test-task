@@ -13,7 +13,7 @@ import { ImageLayer } from "../../types/ImageLayer";
 import { Flow } from "../../types/Flow";
 import { Style } from "../../types/Style";
 
-import "./CreateImageLayerModal.scss";
+// import "./CreateImageLayerModal.scss";
 
 interface Props {
   taskId: string;
