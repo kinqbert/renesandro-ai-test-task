@@ -1,11 +1,11 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useTasksStore } from "../../store/tasksStore";
 import { useEffect, useState } from "react";
 import { Task } from "../../types/Task";
 import Accordion from "../../components/Accordion/Accordion";
-import ImageLayerProperties from "../../components/ImageLayerProperties/ImageLayerProperties";
+import ImageLayerProperties from "../../components/ImageLayerProperties";
 import { ImageLayer } from "../../types/ImageLayer";
-import { CreateImageLayerModal } from "../../components/CreateImageLayerModal";
+import CreateImageLayerModal from "../../components/CreateImageLayerModal";
 
 function TaskPage() {
   const { taskId } = useParams();
@@ -42,9 +42,12 @@ function TaskPage() {
 
   return (
     <>
+      <Link to="..">Home page</Link>
       <h1>This is a task page for {task?.name}</h1>
       <h2>Image layers:</h2>
-      <button onClick={handleCreateNewImageLayer}>Create new image layer</button>
+      <button onClick={handleCreateNewImageLayer}>
+        Create new image layer
+      </button>
       {imageLayers?.map((imageLayer) => (
         <Accordion
           key={imageLayer.id}
@@ -58,7 +61,10 @@ function TaskPage() {
         />
       ))}
       {creatingImageLayer && (
-        <CreateImageLayerModal taskId={task.id} setCreatingImageLayer={setCreatingImageLayer} />
+        <CreateImageLayerModal
+          taskId={task.id}
+          setCreatingImageLayer={setCreatingImageLayer}
+        />
       )}
     </>
   );

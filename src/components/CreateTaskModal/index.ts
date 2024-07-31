@@ -1,1 +1,3 @@
-export * from './CreateTaskModal';
+import CreateTaskModal from "./CreateTaskModal";
+
+export default CreateTaskModal;

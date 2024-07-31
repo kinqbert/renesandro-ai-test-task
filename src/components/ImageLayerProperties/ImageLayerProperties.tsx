@@ -4,6 +4,10 @@ import { Dimension } from "../../types/Dimension";
 import { Flow } from "../../types/Flow";
 import { Style } from "../../types/Style";
 
+import SelectField from "../SelectField";
+import InputField from "../InputField";
+import NumberInputField from "../NumberInputField";
+
 interface Props {
   imageLayer: ImageLayer;
   onImageLayerChange: (updatedLayer: ImageLayer) => void;
@@ -25,82 +29,55 @@ function ImageLayerProperties({ imageLayer, onImageLayerChange }: Props) {
 
   return (
     <div className="image-layer-props">
-      <div className="image-layer-props__property">
-        <label className="image-layer-props__input-title">
-          Select dimension
-        </label>
-        <select
-          className="image-layer-props__input-field"
-          name="dimension"
-          value={layerState.dimension}
-          onChange={(event) =>
-            handleChange("dimension", event.target.value as Dimension)
-          }
-        >
-          {Object.entries(Dimension).map(([key, value]) => (
-            <option key={key} value={key}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="image-layer-props__property">
-        <label className="image-layer-props__input-title">Select flow</label>
-        <select
-          className="image-layer-props__input-field"
-          name="flow"
-          value={layerState.flow}
-          onChange={(event) => handleChange("flow", event.target.value as Flow)}
-        >
-          {Object.entries(Flow).map(([key, value]) => (
-            <option key={key} value={key}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="image-layer-props__property">
-        <label className="image-layer-props__input-title">Enter prompts</label>
-        <input
-          name="prompts"
-          className="image-layer-props__input-field"
-          type="text"
-          value={layerState.prompts}
-          onChange={(event) => handleChange("prompts", event.target.value)}
-        />
-      </div>
-      <div className="image-layer-props__property">
-        <label className="image-layer-props__input-title">
-          Amount of generates
-        </label>
-        <input
-          name="generatesPerRef"
-          className="image-layer-props__input-field"
-          type="number"
-          value={layerState.generatesPerRef}
-          onChange={(event) =>
-            handleChange("generatesPerRef", Number(event.target.value))
-          }
-          required
-        />
-      </div>
-      <div className="image-layer-props__property">
-        <label className="image-layer-props__input-title">Select style</label>
-        <select
-          className="image-layer-props__input-field"
-          name="style"
-          value={layerState.style}
-          onChange={(event) =>
-            handleChange("style", event.target.value as Style)
-          }
-        >
-          {Object.entries(Style).map(([key, value]) => (
-            <option key={key} value={key}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </div>
+      <SelectField
+        label="Select dimension"
+        name="dimension"
+        value={layerState.dimension}
+        options={Object.entries(Dimension).map(([key, value]) => ({
+          value: key,
+          label: value,
+        }))}
+        onChange={(e) => handleChange("dimension", e.target.value)}
+        required={true}
+      />
+      <SelectField
+        label="Select flow"
+        name="flow"
+        value={layerState.flow}
+        options={Object.entries(Flow).map(([key, value]) => ({
+          value: key,
+          label: value,
+        }))}
+        onChange={(e) => handleChange("flow", e.target.value)}
+        required={true}
+      />
+      <InputField
+        label="Enter prompts"
+        name="prompts"
+        value={layerState.prompts}
+        onChange={(event) => handleChange("prompts", event.target.value)}
+      />
+
+      <NumberInputField
+        label="Amount of generates"
+        name="generatesPerRef"
+        value={layerState.generatesPerRef}
+        onChange={(event) =>
+          handleChange("generatesPerRef", event.target.value)
+        }
+        required={true}
+      />
+
+      <SelectField
+        label="Select style"
+        name="style"
+        value={layerState.style}
+        options={Object.entries(Style).map(([key, value]) => ({
+          value: key,
+          label: value,
+        }))}
+        onChange={(event) => handleChange("style", event.target.value as Style)}
+      />
     </div>
   );
 }

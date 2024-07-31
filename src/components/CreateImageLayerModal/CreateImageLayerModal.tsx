@@ -1,7 +1,12 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import "./createImageLayerModal.scss";
+import "./CreateImageLayerModal.scss";
 
 import { v4 as uuidv4 } from "uuid";
+
+import InputField from "../InputField";
+import SelectField from "../SelectField";
+import ImageUploadField from "../ImageUploadField";
+import NumberInputField from "../NumberInputField";
 
 import { TemplateId } from "../../types/TemplateId";
 import { GenType } from "../../types/GenType";
@@ -16,10 +21,7 @@ interface Props {
   setCreatingImageLayer: Dispatch<SetStateAction<boolean>>;
 }
 
-export function CreateImageLayerModal({
-  taskId,
-  setCreatingImageLayer,
-}: Props) {
+function CreateImageLayerModal({ taskId, setCreatingImageLayer }: Props) {
   const { addImageLayer } = useTasksStore();
 
   const [name, setName] = useState("");
@@ -33,6 +35,9 @@ export function CreateImageLayerModal({
   const [generatesPerRef, setGeneratesPerRef] = useState(1);
   const [style, setStyle] = useState<Style>(Style.animeStyle);
 
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+
   const handleOnSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const newImageLayer: ImageLayer = {
@@ -41,7 +46,7 @@ export function CreateImageLayerModal({
       name,
       dimension,
       flow,
-      imageRefs: null,
+      imageRefs: imageFiles.map((file) => URL.createObjectURL(file)),
       prompts,
       generatesPerRef,
       style,
@@ -59,116 +64,89 @@ export function CreateImageLayerModal({
     <div className="modal">
       <h1 className="modal__title">Create New Image Layer</h1>
       <form className="form" onSubmit={handleOnSubmit} onReset={handleOnReset}>
-        <div className="form__input">
-          <label className="form__input-title">Enter Layer Name</label>
-          <input
-            name="layerName"
-            className="form__input-field"
-            type="text"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            required
-          />
-        </div>
-        <div className="form__input">
-          <label className="form__input-title">Select Dimension</label>
-          <select
-            className="form__input-field"
-            name="dimension"
-            value={dimension}
-            onChange={(event) => setDimension(event.target.value as Dimension)}
-          >
-            {Object.entries(Dimension).map(([key, value]) => (
-              <option key={key} value={key}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form__input">
-          <label className="form__input-title">Select Template ID</label>
-          <select
-            className="form__input-field"
-            name="templateId"
-            value={templateId}
-            onChange={(event) =>
-              setTemplateId(event.target.value as TemplateId)
-            }
-          >
-            {Object.entries(TemplateId).map(([key, value]) => (
-              <option key={key} value={key}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form__input">
-          <label className="form__input-title">Select Gen Type</label>
-          <select
-            className="form__input-field"
-            name="genType"
-            value={genType}
-            onChange={(event) => setGenType(event.target.value as GenType)}
-          >
-            {Object.entries(GenType).map(([key, value]) => (
-              <option key={key} value={key}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form__input">
-          <label className="form__input-title">Select Flow</label>
-          <select
-            className="form__input-field"
-            name="flow"
-            value={flow}
-            onChange={(event) => setFlow(event.target.value as Flow)}
-          >
-            {Object.entries(Flow).map(([key, value]) => (
-              <option key={key} value={key}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form__input">
-          <label className="form__input-title">Enter Prompts</label>
-          <input
-            name="prompts"
-            className="form__input-field"
-            type="text"
-            value={prompts}
-            onChange={(event) => setPrompts(event.target.value)}
-          />
-        </div>
-        <div className="form__input">
-          <label className="form__input-title">Generates Per Ref</label>
-          <input
-            name="generatesPerRef"
-            className="form__input-field"
-            type="number"
-            value={generatesPerRef}
-            onChange={(event) => setGeneratesPerRef(Number(event.target.value))}
-            min={1}
-            required
-          />
-        </div>
-        <div className="form__input">
-          <label className="form__input-title">Select Style</label>
-          <select
-            className="form__input-field"
-            name="style"
-            value={style}
-            onChange={(event) => setStyle(event.target.value as Style)}
-          >
-            {Object.entries(Style).map(([key, value]) => (
-              <option key={key} value={key}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </div>
+        <InputField
+          label="Enter Layer Name"
+          name="layerName"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <SelectField
+          label="Select Dimension"
+          name="dimension"
+          value={dimension}
+          options={Object.entries(Dimension).map(([key, value]) => ({
+            value: key,
+            label: value,
+          }))}
+          onChange={(e) => setDimension(e.target.value as Dimension)}
+          required
+        />
+        <SelectField
+          label="Select Template ID"
+          name="templateId"
+          value={templateId}
+          options={Object.entries(TemplateId).map(([key, value]) => ({
+            value: key,
+            label: value,
+          }))}
+          onChange={(e) => setTemplateId(e.target.value as TemplateId)}
+          required
+        />
+        <SelectField
+          label="Select Gen Type"
+          name="genType"
+          value={genType}
+          options={Object.entries(GenType).map(([key, value]) => ({
+            value: key,
+            label: value,
+          }))}
+          onChange={(e) => setGenType(e.target.value as GenType)}
+          required
+        />
+        <SelectField
+          label="Select Flow"
+          name="flow"
+          value={flow}
+          options={Object.entries(Flow).map(([key, value]) => ({
+            value: key,
+            label: value,
+          }))}
+          onChange={(e) => setFlow(e.target.value as Flow)}
+          required
+        />
+        <SelectField
+          label="Select Style"
+          name="style"
+          value={style}
+          options={Object.entries(Style).map(([key, value]) => ({
+            value: key,
+            label: value,
+          }))}
+          onChange={(e) => setStyle(e.target.value as Style)}
+          required
+        />
+        <ImageUploadField
+          label="Upload Image References"
+          images={imageFiles}
+          setImages={setImageFiles}
+          previews={imagePreviews}
+          setPreviews={setImagePreviews}
+        />
+        <InputField
+          label="Enter Prompts"
+          name="prompts"
+          value={prompts}
+          onChange={(e) => setPrompts(e.target.value)}
+        />
+        <NumberInputField
+          label="Generates Per Ref"
+          name="generatesPerRef"
+          value={generatesPerRef}
+          onChange={(e) => setGeneratesPerRef(Number(e.target.value))}
+          min={1}
+          required
+        />
         <div className="form__buttons">
           <button className="form__button form__button--cancel" type="reset">
             Cancel
@@ -181,3 +159,5 @@ export function CreateImageLayerModal({
     </div>
   );
 }
+
+export default CreateImageLayerModal;
