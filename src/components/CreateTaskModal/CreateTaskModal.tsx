@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import InputField from "../InputField";
 import SelectField from "../SelectField";
+import NumberInputField from "../NumberInputField";
 
 import { TemplateId } from "../../types/TemplateId";
 import { GenType } from "../../types/GenType";
@@ -23,6 +24,7 @@ function CreateTaskModal({ setModalOpen }: Props) {
   const [dimension, setDimension] = useState(Dimension["1x1"]);
   const [templateId, setTemplateId] = useState(TemplateId["0xdoscyowl50c"]);
   const [genType, setGenType] = useState(GenType.random_generation);
+  const [amount, setAmount] = useState(1);
 
   const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -35,6 +37,9 @@ function CreateTaskModal({ setModalOpen }: Props) {
       dimension,
       genType,
       templateId,
+      amount,
+      imageLayers: [],
+      textLayers: []
     };
 
     addTask(newTask);
@@ -58,6 +63,7 @@ function CreateTaskModal({ setModalOpen }: Props) {
           name="taskName"
           value={name}
           onChange={(event) => setName(event.target.value)}
+          required={true}
         />
 
         <SelectField
@@ -91,6 +97,15 @@ function CreateTaskModal({ setModalOpen }: Props) {
             value: key,
             label: value,
           }))}
+        />
+
+        <NumberInputField
+          label="Amount"
+          name="amount"
+          value={amount}
+          onChange={(event) => setAmount(Number(event.target.value))}
+          min={1}
+          required={true}
         />
 
         <div className="form__buttons">

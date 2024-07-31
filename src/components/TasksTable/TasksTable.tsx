@@ -1,3 +1,4 @@
+import { generateFormats } from "../../api/api";
 import { Task } from "../../types/Task";
 
 import TableRow from "../TableRow";
@@ -7,8 +8,9 @@ interface Props {
 }
 
 function TasksTable({ tasks }: Props) {
-
-  const handleGenerateTask = () => { };
+  const handleGenerateTask = (task: Task) => {
+    generateFormats(task).then((response) => console.log(response));
+  };
 
   return (
     <table className="table">
@@ -27,7 +29,11 @@ function TasksTable({ tasks }: Props) {
       </thead>
       <tbody>
         {tasks.map((task) => (
-          <TableRow task={task} handleGenerateTask={handleGenerateTask} />
+          <TableRow
+            key={task.id}
+            task={task}
+            handleGenerateTask={handleGenerateTask}
+          />
         ))}
       </tbody>
     </table>

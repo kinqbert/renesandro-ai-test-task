@@ -1,40 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./ImageUploadField.scss";
+import { fileToBase64 } from "../../utils/fileToBase64";
 
 interface ImageUploadProps {
   label: string;
-  images: File[];
-  setImages: (files: File[]) => void;
-  previews?: string[];
-  setPreviews?: (urls: string[]) => void;
+  images: string[]; // Base64 strings
+  setImages: (files: string[]) => void;
 }
 
 const ImageUploadField: React.FC<ImageUploadProps> = ({
   label,
   images,
   setImages,
-  previews = [],
-  setPreviews = () => {},
 }) => {
+  const [previews, setPreviews] = useState<string[]>(images);
+
+  // Update previews when images prop changes
   useEffect(() => {
-    if (setPreviews && images.length > 0) {
-      const newPreviews = images.map((file) => {
-        try {
-          return URL.createObjectURL(file);
-        } catch (error) {
-          console.error("Invalid file for preview generation:", file, error);
-          return "";
-        }
-      });
-      setPreviews(newPreviews.filter((url) => url !== ""));
+    setPreviews(images);
+  }, [images]);
 
-      return () => newPreviews.forEach((url) => URL.revokeObjectURL(url));
-    }
-  }, [images, setPreviews]);
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // Handle file input change
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     if (event.target.files) {
-      setImages(Array.from(event.target.files));
+      const files = Array.from(event.target.files);
+      try {
+        const base64Images = await Promise.all(files.map(fileToBase64));
+        setImages(base64Images);
+        setPreviews(base64Images); // Update internal previews state
+      } catch (error) {
+        console.error("Error converting files to Base64:", error);
+      }
     }
   };
 

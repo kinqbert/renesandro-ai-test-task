@@ -1,8 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import "./CreateImageLayerModal.scss";
 
-import { v4 as uuidv4 } from "uuid";
-
 import InputField from "../InputField";
 import SelectField from "../SelectField";
 import ImageUploadField from "../ImageUploadField";
@@ -22,7 +20,7 @@ interface Props {
 }
 
 function CreateImageLayerModal({ taskId, setCreatingImageLayer }: Props) {
-  const { addImageLayer } = useTasksStore();
+  const { addImageLayerToTask } = useTasksStore();
 
   const [name, setName] = useState("");
   const [dimension, setDimension] = useState<Dimension>(Dimension["1x1"]);
@@ -34,26 +32,23 @@ function CreateImageLayerModal({ taskId, setCreatingImageLayer }: Props) {
   const [prompts, setPrompts] = useState("");
   const [generatesPerRef, setGeneratesPerRef] = useState(1);
   const [style, setStyle] = useState<Style>(Style.animeStyle);
-
-  const [imageFiles, setImageFiles] = useState<File[]>([]);
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [imageRefs, setImageRefs] = useState<string[]>([]);
 
   const handleOnSubmit = (event: React.FormEvent) => {
+    // todo -- add check for unique names
     event.preventDefault();
 
     const newImageLayer: ImageLayer = {
-      id: uuidv4(),
-      taskId: taskId,
       name,
       dimension,
       flow,
-      imageRefs: imageFiles,
+      imageRefs,
       prompts,
       generatesPerRef,
       style,
     };
 
-    addImageLayer(newImageLayer);
+    addImageLayerToTask(taskId, newImageLayer);
     setCreatingImageLayer(false);
   };
 
@@ -129,10 +124,8 @@ function CreateImageLayerModal({ taskId, setCreatingImageLayer }: Props) {
         />
         <ImageUploadField
           label="Upload Image References"
-          images={imageFiles}
-          setImages={setImageFiles}
-          previews={imagePreviews}
-          setPreviews={setImagePreviews}
+          images={imageRefs}
+          setImages={setImageRefs}
         />
         <InputField
           label="Enter Prompts"

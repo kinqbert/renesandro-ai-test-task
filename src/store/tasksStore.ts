@@ -7,14 +7,11 @@ interface TasksState {
   tasks: Task[];
   imageLayers: ImageLayer[];
   addTask: (task: Task) => void;
-  addImageLayer: (imageLayer: ImageLayer) => void;
+  addImageLayerToTask: (taskId: string, imageLayer: ImageLayer) => void;
   getTaskById: (id: string) => Task | undefined;
-  getImageLayerById: (id: string) => ImageLayer | undefined;
-  getImageLayersOfTask: (taskId: string) => ImageLayer[] | undefined;
-  updateImageLayer: (
-    imageLayerId: string,
-    updatedImageLayer: ImageLayer
-  ) => void;
+  getImageLayerByName: (name: string) => ImageLayer | undefined;
+  getImageLayersOfTask: (taskId: string) => ImageLayer[];
+  updateImageLayer: (name: string, updatedImageLayer: ImageLayer) => void;
   reset: () => void;
 }
 
@@ -25,20 +22,27 @@ export const useTasksStore = create<TasksState>()(
       imageLayers: [],
       addTask: (task: Task) =>
         set((state) => ({ tasks: [...state.tasks, task] })),
-      addImageLayer: (imageLayer: ImageLayer) =>
-        set((state) => ({ imageLayers: [...state.imageLayers, imageLayer] })),
+      addImageLayerToTask: (taskId: string, imageLayer: ImageLayer) => {
+        set((state) => {
+          const task = state.tasks.find((task) => task.id === taskId);
+          if (task) {
+            task.imageLayers = [...task.imageLayers, imageLayer.name];
+            return { imageLayers: [...state.imageLayers, imageLayer] };
+          }
+          return state;
+        });
+      },
       getTaskById: (id: string) => get().tasks.find((task) => task.id === id),
-      getImageLayerById: (id: string) =>
-        get().imageLayers.find((imageLayer) => imageLayer.id === id),
-      getImageLayersOfTask: (taskId: string) =>
-        get().imageLayers.filter((imageLayer) => imageLayer.taskId === taskId),
-      updateImageLayer: (
-        imageLayerId: string,
-        updatedImageLayer: ImageLayer
-      ) => {
+      getImageLayerByName: (name: string) =>
+        get().imageLayers.find((imageLayer) => imageLayer.name === name),
+      getImageLayersOfTask: (taskId: string) => {
+        const task = get().getTaskById(taskId);
+        return get().imageLayers.filter(imageLayer => task?.imageLayers.includes(imageLayer.name)) 
+      },
+      updateImageLayer: (name: string, updatedImageLayer: ImageLayer) => {
         set((state) => ({
           imageLayers: state.imageLayers.map((layer) =>
-            layer.id === imageLayerId ? updatedImageLayer : layer
+            layer.name === name ? updatedImageLayer : layer
           ),
         }));
       },

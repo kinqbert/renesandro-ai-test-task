@@ -27,7 +27,7 @@ jobs:
         run: npm install
 
       - name: Build project
-        run: npm run build -- --mode deploy
+        run: npm run build -- --mode production
 
       - name: List build directory contents for debug
         run: ls -la ./dist

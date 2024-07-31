@@ -29,7 +29,7 @@ function TaskPage() {
   }, [taskId, getTaskById, getImageLayersOfTask, creatingImageLayer]);
 
   const onImageLayerChange = (ImageLayerState: ImageLayer) => {
-    updateImageLayer(ImageLayerState.id, ImageLayerState);
+    updateImageLayer(ImageLayerState.name, ImageLayerState);
   };
 
   const handleCreateNewImageLayer = () => {
@@ -50,7 +50,7 @@ function TaskPage() {
       </button>
       {imageLayers?.map((imageLayer) => (
         <Accordion
-          key={imageLayer.id}
+          key={imageLayer.name}
           title={imageLayer.name}
           item={
             <ImageLayerProperties
