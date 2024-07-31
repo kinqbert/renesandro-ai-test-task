@@ -1,36 +1,80 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import "./createTaskModal.scss";
 
+import { v4 as uuidv4 } from "uuid";
+
 import { TemplateId } from "../../types/TemplateId";
 import { GenType } from "../../types/GenType";
 import { useTasksStore } from "../../store/tasksStore";
 import { Task } from "../../types/Task";
 import { Dimension } from "../../types/Dimension";
+import { Flow } from "../../types/Flow";
+import { Style } from "../../types/Style";
 
 interface Props {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export function CreateTaskModal({ setModalOpen }: Props) {
-  const addTask = useTasksStore((state) => state.addTask);
+  const { addTask, addImageLayer } = useTasksStore();
 
   const [name, setName] = useState("");
   const [dimension, setDimension] = useState(Dimension["1x1"]);
   const [templateId, setTemplateId] = useState(TemplateId["0xdoscyowl50c"]);
-  const [genType, setGenType] = useState(GenType.Cycle);
+  const [genType, setGenType] = useState(GenType.random_generation);
 
   const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const id = uuidv4();
+
     const newTask: Task = {
+      id,
       name,
       dimension,
       genType,
       templateId,
-      imageLayers: [],
     };
 
+    const newImageLayers = [
+      {
+        id: uuidv4(),
+        taskId: id,
+        name: "image1",
+        dimension: Dimension["1x1"],
+        flow: Flow.mjModel,
+        imageRefs: null,
+        prompts: "",
+        generatesPerRef: 5,
+        style: Style.animeStyle,
+      },
+      {
+        id: uuidv4(),
+        taskId: id,
+        name: "image2",
+        dimension: Dimension["1x1"],
+        flow: Flow.mjModel,
+        imageRefs: null,
+        prompts: "",
+        generatesPerRef: 5,
+        style: Style.ultraRealisticPhotography,
+      },
+      {
+        id: uuidv4(),
+        taskId: id,
+        name: "image3",
+        dimension: Dimension["16x9"],
+        flow: Flow.mjModel,
+        imageRefs: null,
+        prompts: "",
+        generatesPerRef: 5,
+        style: Style.ultraRealisticPhotography,
+      },
+    ];
+
     addTask(newTask);
+
+    newImageLayers.forEach((imageLayer) => addImageLayer(imageLayer));
 
     setModalOpen(false);
   };
@@ -90,9 +134,7 @@ export function CreateTaskModal({ setModalOpen }: Props) {
             className="form__input-field"
             name="genType"
             value={genType}
-            onChange={(event) =>
-              setGenType(event.target.value as GenType)
-            }
+            onChange={(event) => setGenType(event.target.value as GenType)}
           >
             {Object.entries(GenType).map((entry) => (
               <option value={entry[0]}>{entry[1]}</option>

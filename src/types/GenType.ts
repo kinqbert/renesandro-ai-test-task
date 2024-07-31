@@ -1,4 +1,4 @@
 export enum GenType {
-  Random = "random_generation",
-  Cycle = "cyclic_generation"
+  random_generation = "random_generation",
+  cyclic_generation = "cyclic_generation"
 }

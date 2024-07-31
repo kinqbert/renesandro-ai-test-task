@@ -1,0 +1,16 @@
+.accordion {
+  &__toggle {
+    width: 500px;
+  }
+}
+
+.accordion__content-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.accordion.toggled .accordion__content-wrapper {
+  max-height: 150px;
+  transition: max-height 0.3s ease-in;
+}
