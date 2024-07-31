@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./NumberInputField.scss";
 
 interface NumberInputFieldProps {

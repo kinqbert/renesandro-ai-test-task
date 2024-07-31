@@ -2,6 +2,8 @@ import { Task } from "../../types/Task";
 
 import { Link } from "react-router-dom";
 
+import './TableRow.scss';
+
 interface Props {
   task: Task;
   handleGenerateTask: (task: Task) => void;

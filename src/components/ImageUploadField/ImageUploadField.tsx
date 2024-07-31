@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "./ImageUploadField.scss";
+
 import { fileToBase64 } from "../../utils/fileToBase64";
+
+import "./ImageUploadField.scss";
 
 interface ImageUploadProps {
   label: string;

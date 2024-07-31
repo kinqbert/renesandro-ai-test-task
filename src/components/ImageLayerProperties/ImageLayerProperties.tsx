@@ -11,6 +11,8 @@ import ImageUploadField from "../ImageUploadField";
 
 import { generateImages } from "../../api/api";
 
+import './ImageLayerProperties.scss';
+
 interface Props {
   imageLayer: ImageLayer;
   onImageLayerChange: (updatedLayer: ImageLayer) => void;

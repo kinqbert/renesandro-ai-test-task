@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import "./CreateImageLayerModal.scss";
 
 import InputField from "../InputField";
 import SelectField from "../SelectField";
@@ -13,6 +12,8 @@ import { Dimension } from "../../types/Dimension";
 import { ImageLayer } from "../../types/ImageLayer";
 import { Flow } from "../../types/Flow";
 import { Style } from "../../types/Style";
+
+import "./CreateImageLayerModal.scss";
 
 interface Props {
   taskId: string;

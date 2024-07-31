@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import "./createTaskModal.scss";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -12,6 +11,8 @@ import { GenType } from "../../types/GenType";
 import { useTasksStore } from "../../store/tasksStore";
 import { Task } from "../../types/Task";
 import { Dimension } from "../../types/Dimension";
+
+import "./createTaskModal.scss";
 
 interface Props {
   setModalOpen: Dispatch<SetStateAction<boolean>>;

@@ -3,6 +3,8 @@ import { Task } from "../../types/Task";
 
 import TableRow from "../TableRow";
 
+import './TasksTable.scss';
+
 interface Props {
   tasks: Task[];
 }
