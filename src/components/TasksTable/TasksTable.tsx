@@ -1,13 +1,12 @@
-import { Link } from "react-router-dom";
 import { Task } from "../../types/Task";
-import { useTasksStore } from "../../store/tasksStore";
+
+import TableRow from "../TableRow";
 
 interface Props {
   tasks: Task[];
 }
 
 function TasksTable({ tasks }: Props) {
-  const { getImageLayersOfTask } = useTasksStore();
 
   const handleGenerateTask = () => { };
 
@@ -28,26 +27,7 @@ function TasksTable({ tasks }: Props) {
       </thead>
       <tbody>
         {tasks.map((task) => (
-          <tr key={task.name}>
-            <td>
-              <Link to={task.id}>{task.name}</Link>
-            </td>
-            <td>{task.dimension}</td>
-            <td>{task.templateId}</td>
-            <td>{getImageLayersOfTask(task.id)?.map((layer) => layer.name)}</td>
-            <td>FUCK IT WE BALLIN</td>
-            <td>
-              {getImageLayersOfTask(task.id)?.reduce(
-                (acc, { generatesPerRef }) => acc + generatesPerRef,
-                0
-              )}
-            </td>
-            <td>{task.genType}</td>
-            <td>
-              <button onClick={handleGenerateTask}>Generate</button>
-            </td>
-            <td>some result link</td>
-          </tr>
+          <TableRow task={task} handleGenerateTask={handleGenerateTask} />
         ))}
       </tbody>
     </table>

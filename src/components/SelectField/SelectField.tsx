@@ -10,7 +10,14 @@ interface SelectFieldProps {
   required?: boolean;
 }
 
-const SelectField: React.FC<SelectFieldProps> = ({ label, name, value, options, onChange, required = false }) => {
+const SelectField: React.FC<SelectFieldProps> = ({
+  label,
+  name,
+  value,
+  options,
+  onChange,
+  required = false,
+}) => {
   return (
     <div className="select-field">
       <label className="select-field__label">{label}</label>
@@ -21,7 +28,7 @@ const SelectField: React.FC<SelectFieldProps> = ({ label, name, value, options, 
         onChange={onChange}
         required={required}
       >
-        {options.map(option => (
+        {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>
