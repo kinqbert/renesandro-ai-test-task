@@ -5,21 +5,28 @@ interface ImageUploadProps {
   label: string;
   images: File[];
   setImages: (files: File[]) => void;
-  previews: string[];
+  previews?: string[];
   setPreviews?: (urls: string[]) => void;
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({
+const ImageUploadField: React.FC<ImageUploadProps> = ({
   label,
   images,
   setImages,
-  previews,
+  previews = [],
   setPreviews = () => {},
 }) => {
   useEffect(() => {
-    if (images.length > 0) {
-      const newPreviews = images.map((file) => URL.createObjectURL(file));
-      setPreviews(newPreviews);
+    if (setPreviews && images.length > 0) {
+      const newPreviews = images.map((file) => {
+        try {
+          return URL.createObjectURL(file);
+        } catch (error) {
+          console.error("Invalid file for preview generation:", file, error);
+          return "";
+        }
+      });
+      setPreviews(newPreviews.filter((url) => url !== ""));
 
       return () => newPreviews.forEach((url) => URL.revokeObjectURL(url));
     }
@@ -55,4 +62,4 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   );
 };
 
-export default ImageUpload;
+export default ImageUploadField;

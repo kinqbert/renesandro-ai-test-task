@@ -8,7 +8,7 @@ export interface ImageLayer {
   name: string;
   dimension: Dimension;
   flow: Flow;
-  imageRefs: string[] | null;
+  imageRefs: File[];
   prompts: string;
   generatesPerRef: number;
   style: Style;

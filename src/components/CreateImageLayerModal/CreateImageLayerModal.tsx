@@ -40,13 +40,14 @@ function CreateImageLayerModal({ taskId, setCreatingImageLayer }: Props) {
 
   const handleOnSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
     const newImageLayer: ImageLayer = {
       id: uuidv4(),
       taskId: taskId,
       name,
       dimension,
       flow,
-      imageRefs: imageFiles.map((file) => URL.createObjectURL(file)),
+      imageRefs: imageFiles,
       prompts,
       generatesPerRef,
       style,
