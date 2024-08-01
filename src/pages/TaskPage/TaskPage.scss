@@ -1,0 +1,49 @@
+@import '../../styles/colors.scss';
+
+.task-page {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    width: 100%;
+    max-width: 720px;
+
+    margin-top: 64px;
+  
+    display: flex;
+    justify-items: center;
+    flex-direction: column;
+  }
+
+  &__content {
+    margin-top: 28px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__title {
+    
+  }
+
+  &__section {
+
+  }
+
+  &__section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__section-title {
+    color: $grey-primary;
+  }
+
+  &__layers-wrapper {
+    margin-top: 24px;
+  }
+}
