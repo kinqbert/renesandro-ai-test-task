@@ -46,7 +46,7 @@ function TableRow({ task, handleGenerateTask }: Props) {
       <td>
         <Badge badgeText={task.genType} />
       </td>
-      <td>
+      <td className="table-row__generate-cell">
         <Button
           buttonText="Generate"
           onClick={() => handleGenerateTask(task)}

@@ -1,4 +1,4 @@
-@import '../../styles/colors.scss';
+@import "../../styles/colors.scss";
 
 .table-row {
   &__data {
@@ -7,7 +7,6 @@
   }
 
   &__primary-column {
-
     background-color: $grey-elements;
 
     font-size: 14px;
