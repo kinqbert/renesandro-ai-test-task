@@ -3,7 +3,7 @@ import { Task } from "../../types/Task";
 
 import TableRow from "../TableRow";
 
-import './TasksTable.scss';
+import "./TasksTable.scss";
 
 interface Props {
   tasks: Task[];
@@ -18,15 +18,15 @@ function TasksTable({ tasks }: Props) {
     <table className="table">
       <thead className="table__thead">
         <tr>
-          <th>Task name</th>
-          <th>Dimension</th>
-          <th>Template ID</th>
-          <th>Image layers</th>
-          <th>Text layers</th>
-          <th>Amount</th>
-          <th>Gen type</th>
-          <th>Gen_tasks</th>
-          <th>Result Ads</th>
+          <th className="table__task-name">Task name</th>
+          <th className="table__dimension">Dimension</th>
+          <th className="table__template-id">Template ID</th>
+          <th className="table__image-layers">Image layers</th>
+          <th className="table__text-layers">Text layers</th>
+          <th className="table__amount">Amount</th>
+          <th className="table__gen-type">Gen type</th>
+          <th className="table__gen-tasks">Gen tasks</th>
+          <th className="table__result-ads">Result Ads</th>
         </tr>
       </thead>
       <tbody>

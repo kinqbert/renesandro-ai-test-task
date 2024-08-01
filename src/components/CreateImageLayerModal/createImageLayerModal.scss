@@ -1,4 +1,6 @@
-.modal {
+@import '../../styles/colors.scss';
+
+.image-layer-modal {
   width: 500px;
 
   position: absolute;
@@ -9,7 +11,7 @@
 
   transform: translate(-50%, -50%);
 
-  background-color: gainsboro;
+  background-color: $grey-white;
   border-radius: 2px;
   border: 1px solid;
 

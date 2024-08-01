@@ -1,4 +1,6 @@
-.modal {
+@import '../../styles/colors.scss';
+
+.task-modal {
   width: 500px;
 
   position: absolute;
@@ -9,12 +11,12 @@
 
   transform: translate(-50%, -50%);
 
-  background-color: gainsboro;
-  border-radius: 2px;
+  background-color: $grey-white;
+  border-radius: 6px;
   border: 1px solid;
 
   &__title {
-    text-align: center;
+    text-align: left;
     margin-bottom: 20px;
   }
 }

@@ -25,3 +25,36 @@
   padding: 8px;
   text-align: left;
 }
+
+// COLUMN WIDTHS
+
+.table {
+  &__task-name {
+    width: 10%;
+  }
+  &__dimension {
+    width: 5%;
+  }
+  &__template-id {
+    width: 8%;
+  }
+  &__image-layers {
+    width: 18%;
+  }
+  &__text-layers {
+    width: 18%;
+  }
+  &__amount {
+    width: 5%;
+  }
+  &__gen-type {
+    width: 10%;
+  }
+  &__gen-tasks {
+    width: 8%;
+  }
+  &__result-ads {
+    width: 8%;
+  }
+}
+

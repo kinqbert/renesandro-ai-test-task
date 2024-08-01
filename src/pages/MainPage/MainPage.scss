@@ -1,12 +1,26 @@
+@import '../../styles/colors.scss';
+
 main {
   padding-inline: 20px;
 }
 
 .header {
+  height: 80px;
+
   display: flex;
   justify-content: space-between;
-  background-color: #e0e0e0;
   padding: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+
+  &__left {
+    display: flex;
+    gap: 20px;
+    
+  }
+
+  &__logo {
+    
+  }
 }
 
 .table {

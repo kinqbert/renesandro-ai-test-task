@@ -68,8 +68,8 @@ function CreateImageLayerModal({ taskId, setCreatingImageLayer }: Props) {
   };
 
   return (
-    <div className="modal">
-      <h2 className="modal__title">Create New Image Layer</h2>
+    <div className="image-layer-modal">
+      <h2 className="image-layer-modal__title">Create New Image Layer</h2>
       <form className="form" onSubmit={handleOnSubmit} onReset={handleOnReset}>
         <InputField
           label="Enter Layer Name"

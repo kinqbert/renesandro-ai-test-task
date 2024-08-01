@@ -5,15 +5,16 @@ import { v4 as uuidv4 } from "uuid";
 import InputField from "../InputField";
 import SelectField from "../SelectField";
 import NumberInputField from "../NumberInputField";
+import Button from "../Button";
 
 import { TemplateId } from "../../types/TemplateId";
 import { GenType } from "../../types/GenType";
 import { useTasksStore } from "../../store/tasksStore";
 import { Task } from "../../types/Task";
 import { Dimension } from "../../types/Dimension";
+import { TaskStatus } from "../../types/TaskStatus";
 
 import "./createTaskModal.scss";
-import { TaskStatus } from "../../types/TaskStatus";
 
 interface Props {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -57,8 +58,8 @@ function CreateTaskModal({ setModalOpen }: Props) {
   };
 
   return (
-    <div className="modal">
-      <h1 className="modal__title">Create new task</h1>
+    <div className="task-modal">
+      <h1 className="task-modal__title">Create new task</h1>
 
       <form className="form" onSubmit={handleOnSubmit} onReset={handleOnCancel}>
         <InputField
@@ -112,13 +113,8 @@ function CreateTaskModal({ setModalOpen }: Props) {
         />
 
         <div className="form__buttons">
-          <button className="form__button form__button--cancel" type="reset">
-            Cancel
-          </button>
-
-          <button className="form__button form__button-submit" type="submit">
-            Submit
-          </button>
+          <Button buttonText="Cancel" type="reset" stretch />
+          <Button buttonText="Submit" type="submit" variant="filled" stretch />
         </div>
       </form>
     </div>
