@@ -20,7 +20,11 @@ function MainPage() {
     <>
       <header className="header">
         <div className="header__left">
-          <img className="header__logo" src="src\assets\images\logo.png" alt="Renesandro AI Logo" />
+          <img
+            className="header__logo"
+            src="assets/logo.png"
+            alt="Renesandro AI Logo"
+          />
           <h1 className="header__title">Renesandro AI Test Task</h1>
         </div>
         <div className="header__right">
