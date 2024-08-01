@@ -1,0 +1,21 @@
+@import '../../styles/colors.scss';
+@import '../../styles/variables.scss';
+
+.input-field {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  &__label {
+    margin-bottom: 8px;
+  }
+
+  &__input {
+    height: $input-field-height;
+
+    padding-inline: 12px;
+
+    border: 1px solid $grey-light;
+  }
+}

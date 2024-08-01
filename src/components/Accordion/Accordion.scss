@@ -1,16 +1,52 @@
+@import '../../styles/colors.scss';
+
 .accordion {
+  border: none;
+  border-top: 1px solid $grey-elements;
+
+  transition: background-color 0.3s ease-out;
+
+  &--last {
+    border-bottom: 1px solid $grey-elements;
+  }
+
   &__toggle {
-    width: 500px;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+
+
+    padding: 20px 12px;
+    
+    background-color: transparent;
+
+    border: none;
+
+    cursor: pointer;
+
+    font-size: 18px;
+    font-weight: 400;
   }
 }
 
 .accordion__content-wrapper {
+  padding-inline: 12px;
+  
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-out;
 }
 
+.accordion__content {
+  margin-bottom: 12px;
+}
+
 .accordion.toggled .accordion__content-wrapper {
-  max-height: 1000px;
+  max-height: 700px;
   transition: max-height 0.3s ease-in;
+}
+
+.accordion.toggled {
+  background-color: $grey-white;
 }

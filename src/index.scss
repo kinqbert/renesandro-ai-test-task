@@ -1,5 +1,7 @@
-@import './styles/utils/reset.scss';
+@import './styles/reset.scss';
+@import './styles/fonts.scss';
+@import './styles/typography.scss';
 
 body {
-  padding: 20px;
+  font-family: Inter;
 }

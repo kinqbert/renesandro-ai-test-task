@@ -25,7 +25,7 @@ const NumberInputField: React.FC<NumberInputFieldProps> = ({
 }) => {
   return (
     <div className="number-input-field">
-      <label className="number-input-field__label">{label}</label>
+      <label className="number-input-field__label small-text">{label}</label>
       <input
         type="number"
         name={name}

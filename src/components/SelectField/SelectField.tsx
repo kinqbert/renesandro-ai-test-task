@@ -21,7 +21,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
 }) => {
   return (
     <div className="select-field">
-      <label className="select-field__label">{label}</label>
+      <label className="select-field__label small-text">{label}</label>
       <select
         className="select-field__select"
         name={name}

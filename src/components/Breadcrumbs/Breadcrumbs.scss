@@ -1,0 +1,11 @@
+@import '../../styles/colors.scss';
+
+.breadcrumbs {
+  &__item {
+    color: $grey-primary;
+  }
+
+  &__separator {
+    margin-inline: 10px;
+  }
+}

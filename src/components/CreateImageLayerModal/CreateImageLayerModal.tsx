@@ -5,6 +5,9 @@ import SelectField from "../SelectField";
 import ImageUploadField from "../ImageUploadField";
 import NumberInputField from "../NumberInputField";
 
+import ErrorNotification from "../ErrorNotification";
+import Button from "../Button";
+
 import { TemplateId } from "../../types/TemplateId";
 import { GenType } from "../../types/GenType";
 import { useTasksStore } from "../../store/tasksStore";
@@ -12,8 +15,9 @@ import { Dimension } from "../../types/Dimension";
 import { ImageLayer } from "../../types/ImageLayer";
 import { Flow } from "../../types/Flow";
 import { Style } from "../../types/Style";
+import { Error } from "../../types/Error";
 
-// import "./CreateImageLayerModal.scss";
+import "./CreateImageLayerModal.scss";
 
 interface Props {
   taskId: string;
@@ -21,7 +25,7 @@ interface Props {
 }
 
 function CreateImageLayerModal({ taskId, setCreatingImageLayer }: Props) {
-  const { addImageLayerToTask } = useTasksStore();
+  const { addImageLayerToTask, getImageLayerByName } = useTasksStore();
 
   const [name, setName] = useState("");
   const [dimension, setDimension] = useState<Dimension>(Dimension["1x1"]);
@@ -35,8 +39,9 @@ function CreateImageLayerModal({ taskId, setCreatingImageLayer }: Props) {
   const [style, setStyle] = useState<Style>(Style.animeStyle);
   const [imageRefs, setImageRefs] = useState<string[]>([]);
 
+  const [error, setError] = useState<Error | null>(null);
+
   const handleOnSubmit = (event: React.FormEvent) => {
-    // todo -- add check for unique names
     event.preventDefault();
 
     const newImageLayer: ImageLayer = {
@@ -49,6 +54,11 @@ function CreateImageLayerModal({ taskId, setCreatingImageLayer }: Props) {
       style,
     };
 
+    if (getImageLayerByName(name)) {
+      setError(Error.ImageLayerNameDuplicate);
+      return;
+    }
+
     addImageLayerToTask(taskId, newImageLayer);
     setCreatingImageLayer(false);
   };
@@ -59,7 +69,7 @@ function CreateImageLayerModal({ taskId, setCreatingImageLayer }: Props) {
 
   return (
     <div className="modal">
-      <h1 className="modal__title">Create New Image Layer</h1>
+      <h2 className="modal__title">Create New Image Layer</h2>
       <form className="form" onSubmit={handleOnSubmit} onReset={handleOnReset}>
         <InputField
           label="Enter Layer Name"
@@ -142,13 +152,15 @@ function CreateImageLayerModal({ taskId, setCreatingImageLayer }: Props) {
           min={1}
           required
         />
+        {error && <ErrorNotification error={error} />}
         <div className="form__buttons">
-          <button className="form__button form__button--cancel" type="reset">
-            Cancel
-          </button>
-          <button className="form__button form__button-submit" type="submit">
-            Submit
-          </button>
+          <Button buttonText="Cancel" type="reset" stretch={true} />
+          <Button
+            buttonText="Submit"
+            type="submit"
+            variant="filled"
+            stretch={true}
+          />
         </div>
       </form>
     </div>
