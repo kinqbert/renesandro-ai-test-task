@@ -1,8 +1,11 @@
-@import '../../styles/colors.scss';
+@import "../../styles/colors.scss";
 
 .table {
-  border: 1px solid $grey-primary;
   border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+
+  border: 1px solid $grey-primary;
 
   &__thead {
     height: 48px;

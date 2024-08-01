@@ -12,5 +12,5 @@ export interface Task {
   templateId: TemplateId;
   imageLayers: string[];
   textLayers: string[];
-  taskStatus: TaskStatus;
+  status: TaskStatus;
 }

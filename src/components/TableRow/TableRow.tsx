@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
+
 import { Task } from "../../types/Task";
 
 import { Badge, LinkBadge } from "../Badge";
 import Button from "../Button";
 
 import { getResultLink } from "../../utils/getResultLink";
-
-
 
 import "./TableRow.scss";
 

@@ -42,7 +42,7 @@ function CreateTaskModal({ setModalOpen }: Props) {
       amount,
       imageLayers: [],
       textLayers: [],
-      taskStatus: TaskStatus.NotStarted,
+      status: TaskStatus.NotStarted,
     };
 
     addTask(newTask);
