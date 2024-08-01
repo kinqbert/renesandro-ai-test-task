@@ -17,7 +17,7 @@ import { Flow } from "../../types/Flow";
 import { Style } from "../../types/Style";
 import { Error } from "../../types/Error";
 
-import "./CreateImageLayerModal.scss";
+import "./createImageLayerModal.scss";
 
 interface Props {
   taskId: string;
@@ -136,7 +136,7 @@ function CreateImageLayerModal({ taskId, setCreatingImageLayer }: Props) {
         <ImageUploadField
           label="Upload Image References"
           images={imageRefs}
-          setImages={setImageRefs}
+          onChange={setImageRefs}
         />
         <InputField
           label="Enter Prompts"
