@@ -17,12 +17,10 @@ const ImageUploadField: React.FC<ImageUploadProps> = ({
 }) => {
   const [previews, setPreviews] = useState<string[]>(images);
 
-  // Update previews when images prop changes
   useEffect(() => {
     setPreviews(images);
   }, [images]);
 
-  // Handle file input change
   const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -31,11 +29,16 @@ const ImageUploadField: React.FC<ImageUploadProps> = ({
       try {
         const base64Images = await Promise.all(files.map(fileToBase64));
         setImages(base64Images);
-        setPreviews(base64Images); // Update internal previews state
+        setPreviews(base64Images);
       } catch (error) {
         console.error("Error converting files to Base64:", error);
       }
     }
+  };
+
+  const handleOnImageClick = (index: number) => {
+    const updatedImages = previews.filter((_, i) => i !== index);
+    setPreviews(updatedImages);
   };
 
   return (
@@ -50,12 +53,17 @@ const ImageUploadField: React.FC<ImageUploadProps> = ({
       />
       <div className="image-upload__previews">
         {previews.map((src, index) => (
-          <img
+          <div
             key={index}
-            src={src}
-            alt={`Preview ${index}`}
             className="image-upload__preview"
-          />
+            onClick={() => handleOnImageClick(index)}
+          >
+            <img
+              src={src}
+              alt={`Preview ${index}`}
+              className="image-upload__preview-image"
+            />
+          </div>
         ))}
       </div>
     </div>
