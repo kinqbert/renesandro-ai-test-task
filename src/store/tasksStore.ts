@@ -46,6 +46,7 @@ export const useTasksStore = create<TasksState>()(
           ),
         }));
       },
+      
       reset: () => set(() => ({ tasks: [], imageLayers: [] })),
     }),
     {
