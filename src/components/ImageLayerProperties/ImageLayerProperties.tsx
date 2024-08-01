@@ -8,6 +8,7 @@ import SelectField from "../SelectField";
 import InputField from "../InputField";
 import NumberInputField from "../NumberInputField";
 import ImageUploadField from "../ImageUploadField";
+import Button from "../Button";
 
 import { generateImages } from "../../api/api";
 
@@ -18,7 +19,7 @@ interface Props {
   onImageLayerChange: (updatedLayer: ImageLayer) => void;
 }
 
-function ImageLayerProperties({ imageLayer, onImageLayerChange }: Props) {
+function ImageLayerProperties({ imageLayer, onImageLayerChange }: Props) {  
   const [dimension, setDimension] = useState<Dimension>(imageLayer.dimension);
   const [flow, setFlow] = useState<Flow>(imageLayer.flow);
   const [imageRefs, setImageRefs] = useState<string[]>(imageLayer.imageRefs);
@@ -33,7 +34,6 @@ function ImageLayerProperties({ imageLayer, onImageLayerChange }: Props) {
       ...imageLayer,
       dimension,
       flow,
-      imageRefs,
       prompts,
       generatesPerRef,
       style,
@@ -41,7 +41,6 @@ function ImageLayerProperties({ imageLayer, onImageLayerChange }: Props) {
   }, [
     dimension,
     flow,
-    imageRefs,
     prompts,
     generatesPerRef,
     style,
@@ -95,6 +94,7 @@ function ImageLayerProperties({ imageLayer, onImageLayerChange }: Props) {
         label="Amount of generates"
         name="generatesPerRef"
         value={generatesPerRef}
+        min={1}
         onChange={(event) => setGeneratesPerRef(Number(event.target.value))}
         required={true}
       />
@@ -110,7 +110,7 @@ function ImageLayerProperties({ imageLayer, onImageLayerChange }: Props) {
         onChange={(event) => setStyle(event.target.value as Style)}
       />
 
-      <button onClick={() => handleGenerateClick(imageLayer)}>Generate</button>
+      <Button buttonText="Generate" onClick={() => handleGenerateClick(imageLayer)} variant="filled"/>
     </div>
   );
 }
