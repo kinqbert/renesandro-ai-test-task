@@ -16,7 +16,7 @@ function TasksTable({ tasks }: Props) {
 
   return (
     <table className="table">
-      <thead>
+      <thead className="table__thead">
         <tr>
           <th>Task name</th>
           <th>Dimension</th>

@@ -39,6 +39,7 @@ const ImageUploadField: React.FC<ImageUploadProps> = ({
   const handleOnImageClick = (index: number) => {
     const updatedImages = previews.filter((_, i) => i !== index);
     setPreviews(updatedImages);
+    setImages(updatedImages);
   };
 
   return (

@@ -1,5 +1,5 @@
-import React from 'react';
-import './Breadcrumbs.scss';
+import React from "react";
+import "./Breadcrumbs.scss";
 
 interface Props {
   items: React.ReactNode[];

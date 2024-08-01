@@ -3,6 +3,7 @@ import CreateTaskModal from "../../components/CreateTaskModal";
 import { useTasksStore } from "../../store/tasksStore";
 
 import TasksTable from "../../components/TasksTable";
+import Button from "../../components/Button";
 
 import "./MainPage.scss";
 
@@ -19,7 +20,7 @@ function MainPage() {
     <>
       <header className="header">
         <h1>Renesandro AI Test Task</h1>
-        <button onClick={handleNewTask}>New task</button>
+        <Button buttonText="New task" variant="filled" onClick={handleNewTask} />
       </header>
       <main>
         <TasksTable tasks={tasks} />

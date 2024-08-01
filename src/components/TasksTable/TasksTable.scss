@@ -1,0 +1,24 @@
+@import '../../styles/colors.scss';
+
+.table {
+  border: 1px solid $grey-primary;
+  border-collapse: collapse;
+
+  &__thead {
+    height: 48px;
+    color: $white;
+    background-color: $grey-primary;
+  }
+}
+
+.table th {
+  font-size: 14px;
+  border: 1px solid $grey-primary;
+  padding: 8px;
+  text-align: left;
+}
+.table td {
+  border: 1px solid $grey-light;
+  padding: 8px;
+  text-align: left;
+}

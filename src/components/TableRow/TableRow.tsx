@@ -1,8 +1,14 @@
+import { Link } from "react-router-dom";
 import { Task } from "../../types/Task";
 
-import { Link } from "react-router-dom";
+import { Badge, LinkBadge } from "../Badge";
+import Button from "../Button";
 
-import './TableRow.scss';
+import { getResultLink } from "../../utils/getResultLink";
+
+
+
+import "./TableRow.scss";
 
 interface Props {
   task: Task;
@@ -10,21 +16,48 @@ interface Props {
 }
 
 function TableRow({ task, handleGenerateTask }: Props) {
+  const taskResultLink = getResultLink(task);
+
   return (
-    <tr key={task.name}>
-      <td>
+    <tr className="table-row">
+      <td className="table-row__primary-column">
         <Link to={task.id}>{task.name}</Link>
       </td>
-      <td>{task.dimension}</td>
-      <td>{task.templateId}</td>
-      <td>{task.imageLayers.join(", ")}</td>
-      <td>{task.textLayers.join(", ")}</td>
-      <td>{task.amount}</td>
-      <td>{task.genType}</td>
       <td>
-        <button onClick={() => handleGenerateTask(task)}>Generate</button>
+        <Badge badgeText={task.dimension} />
       </td>
-      <td>some result link</td>
+      <td>
+        <Badge badgeText={task.templateId} />
+      </td>
+      <td>
+        <div className="table-row__data">
+          {task.imageLayers.map((imageLayer) => (
+            <Badge key={imageLayer} badgeText={imageLayer} />
+          ))}
+        </div>
+      </td>
+      <td>
+        {task.textLayers.map((textLayer) => (
+          <Badge badgeText={textLayer} />
+        ))}
+      </td>
+      <td>
+        <Badge badgeText={task.amount.toString()} />
+      </td>
+      <td>
+        <Badge badgeText={task.genType} />
+      </td>
+      <td>
+        <Button
+          buttonText="Generate"
+          onClick={() => handleGenerateTask(task)}
+          variant="filled"
+          compact
+        />
+      </td>
+      <td>
+        <LinkBadge badgeText="Result" href={taskResultLink} />
+      </td>
     </tr>
   );
 }

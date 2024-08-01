@@ -1,0 +1,22 @@
+@import "../../styles/colors.scss";
+
+.badge {
+  width: min-content;
+  height: 24px;
+
+  text-wrap: nowrap;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 4px 6px;
+
+  border-radius: 4px;
+
+  background-color: $grey-elements;
+
+  &__text {
+    font-size: 13px;
+  }
+}

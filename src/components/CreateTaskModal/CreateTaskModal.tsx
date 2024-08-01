@@ -13,6 +13,7 @@ import { Task } from "../../types/Task";
 import { Dimension } from "../../types/Dimension";
 
 import "./createTaskModal.scss";
+import { TaskStatus } from "../../types/TaskStatus";
 
 interface Props {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -40,7 +41,8 @@ function CreateTaskModal({ setModalOpen }: Props) {
       templateId,
       amount,
       imageLayers: [],
-      textLayers: []
+      textLayers: [],
+      taskStatus: TaskStatus.NotStarted,
     };
 
     addTask(newTask);

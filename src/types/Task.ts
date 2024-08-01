@@ -1,5 +1,6 @@
 import { Dimension } from "./Dimension";
 import { GenType } from "./GenType";
+import { TaskStatus } from "./TaskStatus";
 import { TemplateId } from "./TemplateId";
 
 export interface Task {
@@ -11,4 +12,5 @@ export interface Task {
   templateId: TemplateId;
   imageLayers: string[];
   textLayers: string[];
+  taskStatus: TaskStatus;
 }

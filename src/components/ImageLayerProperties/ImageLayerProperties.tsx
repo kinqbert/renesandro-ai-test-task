@@ -34,6 +34,7 @@ function ImageLayerProperties({ imageLayer, onImageLayerChange }: Props) {
       ...imageLayer,
       dimension,
       flow,
+      imageRefs,
       prompts,
       generatesPerRef,
       style,
@@ -41,6 +42,7 @@ function ImageLayerProperties({ imageLayer, onImageLayerChange }: Props) {
   }, [
     dimension,
     flow,
+    imageRefs,
     prompts,
     generatesPerRef,
     style,

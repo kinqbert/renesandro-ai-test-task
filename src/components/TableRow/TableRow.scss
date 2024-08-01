@@ -1,0 +1,17 @@
+@import '../../styles/colors.scss';
+
+.table-row {
+  &__data {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__primary-column {
+
+    background-color: $grey-elements;
+
+    font-size: 14px;
+    text-decoration: underline;
+    font-weight: 900;
+  }
+}

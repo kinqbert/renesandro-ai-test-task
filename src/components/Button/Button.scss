@@ -30,6 +30,11 @@
     }
   }
 
+  &--compact {
+    font-size: 12px;
+    padding: 5px 12px;
+  }
+
   &--flex-stretch {
     flex: 1;
   }

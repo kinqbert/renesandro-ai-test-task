@@ -7,6 +7,7 @@ interface Props {
   type?: "reset" | "submit";
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   variant?: "outline" | "filled";
+  compact?: boolean;
 }
 
 function Button({
@@ -15,11 +16,13 @@ function Button({
   type = undefined,
   onClick = () => {},
   variant = "outline",
+  compact = false,
 }: Props) {
   return (
     <button
       className={cn("button", `button--${variant}`, {
         "button--flex-stretch": stretch,
+        "button--compact": compact,
       })}
       onClick={onClick}
       type={type}
