@@ -9,14 +9,7 @@ interface Props {
 }
 
 function Accordion({ title, item, isLast = false }: Props) {
-  const [accordionItem, setAccordionItem] = useState<React.ReactNode>();
   const [toggled, setToggled] = useState(false);
-
-  useEffect(() => {
-    if (item) {
-      setAccordionItem(item);
-    }
-  }, [item]);
 
   const handleAccordionToggle = () => {
     setToggled(!toggled);
@@ -34,7 +27,7 @@ function Accordion({ title, item, isLast = false }: Props) {
         </span>
       </button>
       <div className="accordion__content-wrapper">
-        <div className="accordion__content">{accordionItem}</div>
+        <div className="accordion__content">{item}</div>
       </div>
     </div>
   );
