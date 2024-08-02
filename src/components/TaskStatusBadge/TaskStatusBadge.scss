@@ -1,0 +1,18 @@
+@import '../../styles/colors.scss';
+
+.task-status-badge {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  &--not-started {
+    background-color: $red;
+  }
+  &--loading {
+    background-color: $yellow;
+  }
+  &--completed {
+    background-color: $green;
+  }
+}

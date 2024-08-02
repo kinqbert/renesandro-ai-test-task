@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Task } from "../../types/Task";
 
 import { Badge, LinkBadge } from "../Badge";
+import TaskStatusBadge from "../TaskStatusBadge/TaskStatusBadge";
 import Button from "../Button";
 
 import { getResultLink } from "../../utils/getResultLink";
@@ -46,13 +47,16 @@ function TableRow({ task, handleGenerateTask }: Props) {
       <td>
         <Badge badgeText={task.genType} />
       </td>
-      <td className="table-row__generate-cell">
-        <Button
-          buttonText="Generate"
-          onClick={() => handleGenerateTask(task)}
-          variant="filled"
-          compact
-        />
+      <td>
+        <div className="table-row__generate-cell">
+          <Button
+            buttonText="Generate"
+            onClick={() => handleGenerateTask(task)}
+            variant="filled"
+            compact
+          />
+          <TaskStatusBadge taskStatus={task.status} />
+        </div>
       </td>
       <td>
         <LinkBadge badgeText="Result" href={taskResultLink} />

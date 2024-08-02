@@ -13,4 +13,12 @@
     text-decoration: underline;
     font-weight: 900;
   }
+
+  &__generate-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+  }
 }

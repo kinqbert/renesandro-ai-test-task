@@ -1,5 +1,7 @@
 import { generateFormats } from "../../api/api";
+import { useTasksStore } from "../../store/tasksStore";
 import { Task } from "../../types/Task";
+import { TaskStatus } from "../../types/TaskStatus";
 
 import TableRow from "../TableRow";
 
@@ -10,8 +12,13 @@ interface Props {
 }
 
 function TasksTable({ tasks }: Props) {
+  const { setTaskStatus } = useTasksStore();
+
   const handleGenerateTask = (task: Task) => {
-    generateFormats(task).then((response) => console.log(response));
+    setTaskStatus(task.id, TaskStatus.Loading);
+    generateFormats(task)
+      .then(() => setTaskStatus(task.id, TaskStatus.Completed))
+      .catch(() => setTaskStatus(task.id, TaskStatus.NotStarted));
   };
 
   return (
