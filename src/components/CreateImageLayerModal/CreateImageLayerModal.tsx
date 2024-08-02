@@ -4,13 +4,14 @@ import InputField from "../InputField";
 import SelectField from "../SelectField";
 import ImageUploadField from "../ImageUploadField";
 import NumberInputField from "../NumberInputField";
-
 import ErrorNotification from "../ErrorNotification";
 import Button from "../Button";
 
+import { useTasksStore } from "../../store/tasksStore";
+import { useImageLayersStore } from "../../store/imageLayersStore";
+
 import { TemplateId } from "../../types/TemplateId";
 import { GenType } from "../../types/GenType";
-import { useTasksStore } from "../../store/tasksStore";
 import { Dimension } from "../../types/Dimension";
 import { ImageLayer } from "../../types/ImageLayer";
 import { Flow } from "../../types/Flow";
@@ -25,7 +26,8 @@ interface Props {
 }
 
 function CreateImageLayerModal({ taskId, setCreatingImageLayer }: Props) {
-  const { addImageLayerToTask, getImageLayerByName } = useTasksStore();
+  const { addImageLayerToTask } = useTasksStore();
+  const { getImageLayerByName } = useImageLayersStore();
 
   const [name, setName] = useState("");
   const [dimension, setDimension] = useState<Dimension>(Dimension["1x1"]);

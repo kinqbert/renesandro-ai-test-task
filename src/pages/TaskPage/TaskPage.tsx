@@ -9,33 +9,43 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import Button from "../../components/Button";
 import "./TaskPage.scss";
 import { ImageLayer } from "../../types/ImageLayer";
+import { useImageLayersStore } from "../../store/imageLayersStore";
 
 function TaskPage() {
   const { taskId } = useParams();
-  const { getTaskById, updateImageLayer, getImageLayersOfTask } =
-    useTasksStore();
+  const { getTaskById } = useTasksStore();
+  const { updateImageLayer, getImageLayersByNames } = useImageLayersStore();
 
   const [creatingImageLayer, setCreatingImageLayer] = useState(false);
   const [task, setTask] = useState<Task>();
   const [imageLayers, setImageLayers] = useState<ImageLayer[]>();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (taskId) {
       const task = getTaskById(taskId);
       if (task) {
         setTask(task);
-        setImageLayers(getImageLayersOfTask(taskId));
+        setImageLayers(getImageLayersByNames(task.imageLayers));
       }
     }
-  }, [taskId, getTaskById, getImageLayersOfTask, creatingImageLayer]);
+    setIsLoading(false);
+  }, [taskId, getTaskById, creatingImageLayer, getImageLayersByNames]);
 
-  const onImageLayerChange = useCallback((imageLayerState: ImageLayer) => {
-    updateImageLayer(imageLayerState.name, imageLayerState);
-  }, [updateImageLayer]);
+  const onImageLayerChange = useCallback(
+    (imageLayerState: ImageLayer) => {
+      updateImageLayer(imageLayerState.name, imageLayerState);
+    },
+    [updateImageLayer]
+  );
 
   const handleCreateNewImageLayer = () => {
     setCreatingImageLayer(true);
   };
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
 
   if (!task) {
     return <h1>This task doesn't seem to exist...</h1>;

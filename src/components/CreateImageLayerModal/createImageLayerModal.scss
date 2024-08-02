@@ -21,6 +21,16 @@
     text-align: left;
     margin-bottom: 20px;
   }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform: none;
+    border-radius: 0;
+    padding: 20px 10px;
+  }
 }
 
 .form {
@@ -35,7 +45,7 @@
 
   &__buttons {
     width: 100%;
-    display:flex;
+    display: flex;
     gap: 10px;
   }
 }

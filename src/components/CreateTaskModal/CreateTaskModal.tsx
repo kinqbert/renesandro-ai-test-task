@@ -7,9 +7,10 @@ import SelectField from "../SelectField";
 import NumberInputField from "../NumberInputField";
 import Button from "../Button";
 
+import { useTasksStore } from "../../store/tasksStore";
+
 import { TemplateId } from "../../types/TemplateId";
 import { GenType } from "../../types/GenType";
-import { useTasksStore } from "../../store/tasksStore";
 import { Task } from "../../types/Task";
 import { Dimension } from "../../types/Dimension";
 import { TaskStatus } from "../../types/TaskStatus";
